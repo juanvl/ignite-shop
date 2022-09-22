@@ -1,9 +1,9 @@
-import '../styles/globals.css'
+import '../common/styles/globals.css'
 
 import { AppProps } from 'next/app'
 import Image from 'next/image'
 
-import logo from '../assets/logo.svg'
+import logo from '../common/assets/logo.svg'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
