@@ -1,15 +1,14 @@
+import { GetStaticProps } from 'next'
 import Image from 'next/future/image'
+import Link from 'next/link'
 
 import { useKeenSlider } from 'keen-slider/react'
 import Stripe from 'stripe'
 
-import 'keen-slider/keen-slider.min.css'
-
 import { stripe } from '../common/lib/stripe'
 import { toBRLCurrency } from '../common/utils/format'
 
-import Link from 'next/link'
-import { GetStaticProps } from 'next'
+import 'keen-slider/keen-slider.min.css'
 
 interface HomeProps {
   products: {
