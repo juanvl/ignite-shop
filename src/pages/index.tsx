@@ -1,12 +1,15 @@
-import { useKeenSlider } from 'keen-slider/react'
-import { GetStaticProps } from 'next'
 import Image from 'next/future/image'
+
+import { useKeenSlider } from 'keen-slider/react'
 import Stripe from 'stripe'
 
 import 'keen-slider/keen-slider.min.css'
 
 import { stripe } from '../common/lib/stripe'
 import { toBRLCurrency } from '../common/utils/format'
+
+import Link from 'next/link'
+import { GetStaticProps } from 'next'
 
 interface HomeProps {
   products: {
@@ -32,25 +35,24 @@ export default function Home({ products }: HomeProps) {
       className="keen-slider ml-auto flex min-h-[656px] w-full max-w-[calc(100vw-((100vw-1180px)/2))]"
     >
       {products.map((item) => (
-        <a
-          key={item.id}
-          className="keen-slider__slide group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4]"
-        >
-          <Image
-            src={item.imageUrl}
-            alt=""
-            width={520}
-            height={480}
-            className="object-cover"
-          />
+        <Link key={item.id} href={`/product/${item.id}`}>
+          <a className="keen-slider__slide group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4]">
+            <Image
+              src={item.imageUrl}
+              alt=""
+              width={520}
+              height={480}
+              className="object-cover"
+            />
 
-          <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black/[0.6] p-8 opacity-0 transition-all duration-200 ease-in-out group-hover:translate-y-[0%] group-hover:opacity-100">
-            <strong className="text-lg">{item.name}</strong>
-            <span className="text-xl font-bold text-green300">
-              {item.formattedPrice}
-            </span>
-          </footer>
-        </a>
+            <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black/[0.6] p-8 opacity-0 transition-all duration-200 ease-in-out group-hover:translate-y-[0%] group-hover:opacity-100">
+              <strong className="text-lg">{item.name}</strong>
+              <span className="text-xl font-bold text-green300">
+                {item.formattedPrice}
+              </span>
+            </footer>
+          </a>
+        </Link>
       ))}
     </main>
   )

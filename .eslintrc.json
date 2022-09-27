@@ -9,6 +9,7 @@
     "unused-imports",
     "eslint-plugin-import-helpers"
   ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "prettier/prettier": "error",
     "unused-imports/no-unused-imports": "error",
@@ -22,7 +23,8 @@
         "newlinesBetween": "always",
         "groups": [
           [
-            "/^react/"
+            "/^react/",
+            "/^next/"
           ],
           "module",
           "/^@/",
