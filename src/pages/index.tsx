@@ -29,7 +29,7 @@ export default function Home({ products }: HomeProps) {
       className="keen-slider ml-auto flex min-h-[656px] w-full max-w-[calc(100vw-((100vw-1180px)/2))]"
     >
       {products.map((item) => (
-        <Link key={item.id} href={`/product/${item.id}`}>
+        <Link key={item.id} href={`/product/${item.id}`} prefetch={false}>
           <a className="keen-slider__slide group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4]">
             <Image
               src={item.imageUrl}
