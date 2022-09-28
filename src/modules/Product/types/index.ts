@@ -5,4 +5,5 @@ export interface Product {
   imageUrl: string
   price: number | null
   formattedPrice: string
+  defaultPriceId?: string
 }

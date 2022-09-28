@@ -17,6 +17,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     return <>Loading...</>
   }
 
+  function handleClickBuy() {
+    console.log(product.defaultPriceId)
+  }
+
   return (
     <main className="my-0 mx-auto grid max-w-[1180px] grid-cols-2 items-stretch gap-16">
       <div className="flex h-[656px] w-full max-w-[576px] items-center justify-center rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] p-1 ">
@@ -39,7 +43,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           {product.description}
         </p>
 
-        <button className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white hover:bg-green300">
+        <button
+          onClick={handleClickBuy}
+          className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white hover:bg-green300"
+        >
           Comprar agora
         </button>
       </div>
@@ -83,6 +90,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
     imageUrl: product.images[0],
     price,
     formattedPrice: price ? toBRLCurrency(price) : '',
+    defaultPriceId: stripePrice.id,
   }
 
   return {
