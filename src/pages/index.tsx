@@ -9,15 +9,10 @@ import { stripe } from '../common/lib/stripe'
 import { toBRLCurrency } from '../common/utils/format'
 
 import 'keen-slider/keen-slider.min.css'
+import { Product } from '../modules/Product/types'
 
 interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: number | null
-    formattedPrice: string
-  }[]
+  products: Product[]
 }
 
 export default function Home({ products }: HomeProps) {
