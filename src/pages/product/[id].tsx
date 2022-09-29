@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/future/image'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Stripe from 'stripe'
@@ -41,36 +42,42 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   }
 
   return (
-    <main className="my-0 mx-auto grid max-w-[1180px] grid-cols-2 items-stretch gap-16">
-      <div className="flex h-[656px] w-full max-w-[576px] items-center justify-center rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] p-1 ">
-        <Image
-          src={product.imageUrl}
-          alt=""
-          width={520}
-          height={480}
-          className="object-cover"
-        />
-      </div>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
 
-      <div className="flex flex-col">
-        <h1 className="text-2xl text-gray300">{product.name}</h1>
-        <strong className="mt-4 block text-2xl text-green300">
-          {product.formattedPrice}
-        </strong>
+      <main className="my-0 mx-auto grid max-w-[1180px] grid-cols-2 items-stretch gap-16">
+        <div className="flex h-[656px] w-full max-w-[576px] items-center justify-center rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] p-1 ">
+          <Image
+            src={product.imageUrl}
+            alt=""
+            width={520}
+            height={480}
+            className="object-cover"
+          />
+        </div>
 
-        <p className="mt-10 text-md leading-[1.6] text-gray300">
-          {product.description}
-        </p>
+        <div className="flex flex-col">
+          <h1 className="text-2xl text-gray300">{product.name}</h1>
+          <strong className="mt-4 block text-2xl text-green300">
+            {product.formattedPrice}
+          </strong>
 
-        <button
-          onClick={handleClickBuy}
-          disabled={isCreatingCheckoutSession}
-          className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-green300"
-        >
-          Comprar agora
-        </button>
-      </div>
-    </main>
+          <p className="mt-10 text-md leading-[1.6] text-gray300">
+            {product.description}
+          </p>
+
+          <button
+            onClick={handleClickBuy}
+            disabled={isCreatingCheckoutSession}
+            className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-green300"
+          >
+            Comprar agora
+          </button>
+        </div>
+      </main>
+    </>
   )
 }
 
