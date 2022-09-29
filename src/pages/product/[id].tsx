@@ -1,6 +1,8 @@
+import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import Stripe from 'stripe'
 import { stripe } from '../../common/lib/stripe'
 import { toBRLCurrency } from '../../common/utils/format'
@@ -11,14 +13,31 @@ interface ProductDetailProps {
 }
 
 export default function ProductDetail({ product }: ProductDetailProps) {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
+
   const { isFallback } = useRouter()
 
   if (isFallback) {
     return <>Loading...</>
   }
 
-  function handleClickBuy() {
-    console.log(product.defaultPriceId)
+  async function handleClickBuy() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+      const res = await axios.post('/api/checkout', {
+        priceId: product.defaultPriceId,
+      })
+
+      const { checkoutUrl } = res.data
+
+      window.location.href = checkoutUrl
+    } catch (error) {
+      // TODO: Connect with observability tool (e.g. Datadog, Sentry)
+      setIsCreatingCheckoutSession(false)
+      alert('Falha ao redirecionar para o checkout :(')
+    }
   }
 
   return (
@@ -45,7 +64,8 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
         <button
           onClick={handleClickBuy}
-          className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white hover:bg-green300"
+          disabled={isCreatingCheckoutSession}
+          className="mt-auto cursor-pointer rounded-lg border-0 bg-green500 p-5 text-md font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-green300"
         >
           Comprar agora
         </button>
