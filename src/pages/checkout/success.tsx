@@ -53,8 +53,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   if (!session_id) {
     return {
-      props: {
-        error: 'Invalid session_id',
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     }
   }
